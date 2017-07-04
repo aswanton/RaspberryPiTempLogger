@@ -60,5 +60,5 @@ while True:
 	plot_to_thingspeak(sensor1_temperature, sensor2_temperature)
 
 	print("Sensor 1: "+ str(sensor1_temperature) +"C")
-        print("Sensor 2: "+ str(sensor2_temperature) +"C")	
-	time.sleep(30)
+	print("Sensor 2: "+ str(sensor2_temperature) +"C")	
+	time.sleep(300)
