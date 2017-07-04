@@ -34,7 +34,7 @@ def read_temp(sensor_dir):
 def plot_to_thingspeak(data_to_plot1,data_to_plot2):
 
 	try:
-		params = urllib.urlencode({'field1': int(data_to_plot1), 'field2': int(data_to_plot2), 'key':'89HYGVJ42Q4I9N2D'})  
+		params = urllib.urlencode({'field1': float(data_to_plot1), 'field2': float(data_to_plot2), 'key':'89HYGVJ42Q4I9N2D'})  
         	# use your API key generated in the thingspeak channels for the value of 'key'	
         	# temp is the data you will be sending to the thingspeak channel for plotting the graph. You can add more than one channel and plot more graphs
 		headers = {"Content-typZZe": "application/x-www-form-urlencoded","Accept": "text/plain"}
