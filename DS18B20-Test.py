@@ -4,6 +4,7 @@ import time
 import httplib, urllib
 import time
 import math
+import datetime
  
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -56,7 +57,9 @@ while True:
 
 	sensor1_temperature = read_temp(sensor1_dir)
 	sensor2_temperature = read_temp(sensor2_dir)
-
+	
+	
+	print (time.strftime("%Y-%m-%d %H:%M"))
 	plot_to_thingspeak(sensor1_temperature, sensor2_temperature)
 
 	print("Sensor 1: "+ str(sensor1_temperature) +"C")
