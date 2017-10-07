@@ -9,11 +9,38 @@ import datetime
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
+from os import listdir
+from os.path import isfile, join, isdir
+
+
+DevicesPath = '/sys/bus/w1/devices/'
+DevicesDirs = [f for f in listdir(DevicesPath) if isdir(join(DevicesPath, f))]
+
+sensorCount = 0
+sensorDirName = []
+sensorDirPath = []
+
+for dir in DevicesDirs:
+    if dir[0:3] == '28-':
+        sensorCount = sensorCount+1
+        sensorDirName.append(dir)
+
+
+for dir in sensorDirName:
+    sensorDirPath.append(DevicesPath + dir)
+
+print("Number of DS18b20 sensors found: {}".format(sensorCount))
+
+for num in range(sensorCount):
+    print(sensorDirPath[num-1])
+
+
+ 
 
 sensor1_dir = '/sys/bus/w1/devices/28-011620f120ee/w1_slave'
 sensor2_dir = '/sys/bus/w1/devices/28-02161de1f2ee/w1_slave'
  
-
+PollingPeriod = 300 #Poll every 300 seconds
  
 def read_temp_raw(sensor_dir):
     f = open(sensor_dir, 'r')
@@ -53,6 +80,9 @@ def plot_to_thingspeak(data_to_plot1,data_to_plot2):
 		print "connection failed"
 
 
+print ("DS18b20 Temperature Sensor Logger")
+print ("Polling every {} seconds".format(PollingPeriod))
+
 while True:
 
 	sensor1_temperature = read_temp(sensor1_dir)
@@ -64,4 +94,4 @@ while True:
 
 	print("Sensor 1: "+ str(sensor1_temperature) +"C")
 	print("Sensor 2: "+ str(sensor2_temperature) +"C")	
-	time.sleep(300)
+	time.sleep(PollingPeriod)
